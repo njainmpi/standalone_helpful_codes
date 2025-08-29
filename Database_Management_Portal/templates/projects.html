@@ -1,0 +1,16 @@
+
+<h2>Welcome to your portal, Dr. Jain 👋</h2>
+<p>Select a project to get started:</p>
+
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="project-grid">
+  {% for project in projects %}
+  <a class="project-card" href="{{ url_for('show_subprojects', project_name=project) }}">
+    {{ project }}
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<h2>Welcome to your portal, Dr. Jain 👋</h2>
+<p>Select a subproject under <strong>{{ project }}</strong>:</p>
+
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="project-grid">
+  {% for sp in subprojects %}
+  <a class="project-card" href="{{ url_for('show_datasets', project_name=project, subproject_name=sp) }}">
+    {{ sp }}
+  </a>
+  {% endfor %}
+</div>
+
+<a href="{{ url_for('dashboard') }}">⬅ Back to Projects</a>
+{% endblock %}
