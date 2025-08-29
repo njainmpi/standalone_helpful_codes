@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <title>Database Management Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+</head>
+<body>
+    <div class="navbar">
+        <h1><a href="{{ url_for('dashboard') }}">📂 Database Management Portal</a></h1>
+        {% if session.get('user') %}
+            <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        
+        {% block content %}{% endblock %}
+    </div>
+
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('dashboard') }}">Projects</a></li>
+        <li><a href="{{ url_for('dashboard') }}">Subprojects</a></li>
+        <li><a href="{{ url_for('dashboard') }}">Datasets</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">User Guide</a></li>
+        <li><a href="#">Data Upload</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column contact-info">
+      <h4>Contact</h4>
+      <p>
+        <strong>Dr. Naman Jain</strong><br>
+        Research Scientist<br>
+        Max Planck Institute for Biological Cybernetics<br>
+        Tübingen, Germany<br>
+        <a href="mailto:naman.jain@tuebingen.mpg.de">naman.jain@tuebingen.mpg.de</a><br>
+        +49 7071 601 1669
+      </p>
+      <div class="footer-icons">
+        <a href="https://orcid.org/0000-0001-2345-6789" target="_blank" title="ORCID"><i class="fa-brands fa-orcid"></i></a>
+        <a href="https://www.linkedin.com/in/naman-jain" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/njainmpi" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body>
+</html>

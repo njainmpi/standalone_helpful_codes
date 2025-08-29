@@ -1,0 +1,135 @@
+
+<h2>Welcome to your portal, Dr. Jain 👋</h2>
+
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<h2>Dataset: {{ dataset.get('Dataset') or dataset.get('Animal Id') or 'Unnamed Dataset' }}</h2>
+
+
+<div class="tab-buttons-horizontal">
+  <a href="{{ url_for('dataset_detail_by_index', row_id=request.view_args.row_id, tab='metadata') }}"
+     class="{% if tab == 'metadata' %}active{% endif %}">Meta Data</a>
+  <a href="{{ url_for('dataset_detail_by_index', row_id=request.view_args.row_id, tab='processing') }}"
+     class="{% if tab == 'processing' %}active{% endif %}">Processing Stage</a>
+  <a href="{{ url_for('dataset_detail_by_index', row_id=request.view_args.row_id, tab='fmri') }}"
+     class="{% if tab == 'fmri' %}active{% endif %}">fMRI Data</a>
+</div>
+
+<div class="tab-content">
+  {% if tab == 'metadata' %}
+    <div class="grouped-grid">
+        {% for group, fields in grouped.items() %}
+        <div class="group-column">
+            <h3>{{ group }}</h3>
+            <table>
+                {% for key, value in fields.items() %}
+                <tr>
+                    <th>{{ key }}</th>
+                    <td>{{ value | format_value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endfor %}
+    </div>
+  {% elif tab == 'processing' %}
+  <h3>🛠️ Processing Stage File Check</h3>
+  {% if file_status %}
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for filename, info in file_status.items() %}
+        <tr style="color: {{ 'green' if info.exists else 'red' }}">
+          <td>{{ filename }}</td>
+          <td>{{ info.label }}</td>
+          <td>{{ "✅ Present" if info.exists else "❌ Missing" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p style="color: red;">No processing files found for this run.</p>
+  {% endif %}
+
+  
+
+
+  {% elif tab == 'fmri' %}
+{% if fmri_images_by_label %}
+
+<script>
+  function showCategory(label) {
+    const allBlocks = document.querySelectorAll('.viewer-block');
+    const allButtons = document.querySelectorAll('.category-btn');
+
+    allBlocks.forEach(block => block.style.display = 'none');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById('viewer_' + label).style.display = 'block';
+    document.getElementById('btn_' + label).classList.add('active');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const firstBtn = document.querySelector('.category-btn');
+    if (firstBtn) firstBtn.click();
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="viewer-container">
+  <div class="center-flex">
+  <div class="category-panel">
+    <h4>Select fMRI Layer</h4>
+    {% for label in fmri_images_by_label %}
+      <button class="category-btn" id="btn_{{ loop.index }}" onclick="showCategory('{{ loop.index }}')">
+        {{ label }}
+      </button>
+    {% endfor %}
+  </div>
+</div>
+
+  <div class="viewer-panel">
+    {% for label, img_paths in fmri_images_by_label.items() %}
+      <div class="viewer-block" id="viewer_{{ loop.index }}" style="display:none;">
+        <h3>{{ label }}</h3>
+        <div class="fmri-grid">
+          {% for img_path in img_paths %}
+            <img src="{{ img_path }}" alt="Slice">
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+  <p style="color: red;">No fMRI preview files found for this run.</p>
+  {% endif %}
+{% endif %}
+
+</div>
+
+
+
+<a href="{{ url_for('dashboard') }}">⬅ Back to Dashboard</a>
+{% endblock %}

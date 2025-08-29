@@ -27,7 +27,7 @@ pptx_path = f"/Users/njain/Desktop/render_output_{datetime.now().strftime('%Y%m%
 os.makedirs(output_dir, exist_ok=True)
 prs = Presentation()
 
-slice_indices = [22,23,24]  # For 2×2 grid
+slice_indices = [22,23,24,25]  # For 2×2 grid
 volumes = sorted(glob.glob(os.path.join(split_dir, "vol*.nii.gz")))
 overlay_filename = os.path.basename(overlay_path)
 timestamp_str = datetime.now().strftime("Generated on: %Y-%m-%d %H:%M")
@@ -165,11 +165,11 @@ print(f"✅ Saved PowerPoint with 2×2 grid, slice labels, and footer: {pptx_pat
 #                 "-b", "49.75", "-c", "49.90", "-a", "100",
 #             vol_path,
 #                 "-n", f"Volume_{vol_index}",
-#                 "-dr", "0", "40.0",
-#                 "-cr", "0", "40.0",
+#                 "-dr", "0", "8.0",
+#                 "-cr", "0", "8.0",
 #                 "-cm", "brain_colours_blackbdy",
 #                 "-b", "33.71", "-c", "72.30",
-#                 "-ma", "-mr", "0", "25", "-a", "100"
+#                 "-ma", "-mr", "0", "6", "-a", "100"
 #         ]
 
 #         subprocess.run(cmd, check=True)

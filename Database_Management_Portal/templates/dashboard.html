@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Explore Projects</h2>
+
+<div class="project-grid">
+{% set last_project = None %}
+{% set last_subproject = None %}
+
+{% for row in data %}
+    {% if row['Project'] != last_project %}
+        {% if not loop.first %}</div>{% endif %}
+        <div class="group-column">
+            <h3>{{ row['Project'] }}</h3>
+            {% set last_project = row['Project'] %}
+            {% set last_subproject = None %}
+    {% endif %}
+
+    {% if row['Subproject'] != last_subproject %}
+        <div class="subproject-title"><strong>{{ row['Subproject'] }}</strong></div>
+        {% set last_subproject = row['Subproject'] %}
+    {% endif %}
+
+    <div class="dataset-card">
+        <a href="{{ url_for('dataset_detail', dataset_name=row['Dataset']) }}">{{ row['Dataset'] }}</a>
+        <a href="{{ url_for('file_status', dataset=row['Dataset']) }}">Check File Status</a>
+
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

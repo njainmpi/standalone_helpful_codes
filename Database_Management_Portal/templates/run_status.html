@@ -1,0 +1,17 @@
+<h2>Status for: {{ project }} / {{ subproject }} / {{ dataset }} / Run #{{ run_number }}</h2>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+        {% for label in status %}
+            <th>{{ label }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for exists in status.values() %}
+            <td style="background-color: {{ 'lightgreen' if exists else 'lightcoral' }};
+                       text-align: center; font-weight: bold;">
+                {{ '✅ Present' if exists else '❌ Missing' }}
+            </td>
+        {% endfor %}
+    </tr>
+</table>

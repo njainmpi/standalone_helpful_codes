@@ -1,0 +1,31 @@
+<h2>Welcome to your portal, Dr. Jain 👋</h2>
+<p>Datasets from <strong>{{ project }} / {{ subproject }}</strong> grouped by scan date:</p>
+
+{% extends "layout.html" %}
+{% block content %}
+
+
+{% for month, entries in grouped_datasets.items() %}
+<h3>{{ month }}</h3>
+<div class="project-grid">
+    {% set dataset_tracker = {} %}
+    {% for name, row_id in entries %}
+        {% set count = dataset_tracker.get(name, 0) + 1 %}
+        {% set _ = dataset_tracker.update({name: count}) %}
+        {% if count == 1 %}
+        <div class="project-card" style="text-align: left;">
+            <strong>{{ name }}</strong><br>
+        {% endif %}
+            <a href="{{ url_for('dataset_detail_by_index', row_id=row_id) }}"
+               style="color: white; font-weight: normal; text-decoration: underline;">
+                Run {{ count }}
+            </a>{% if not loop.last and name == entries[loop.index0][0] %}, {% endif %}
+        {% if loop.index == entries|length or name != entries[loop.index0 + 1][0] %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+<a href="{{ url_for('show_subprojects', project_name=project) }}">⬅ Back to Subprojects</a>
+{% endblock %}
