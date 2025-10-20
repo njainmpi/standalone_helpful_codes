@@ -40,7 +40,7 @@ for i, r1 in enumerate(r1_values):
 
 ax1.set_title("Blood T1 vs. Contrast Agent Concentration", pad=8)
 ax1.set_ylabel("T1 of Blood (s)")
-ax1.grid(True, linestyle="--", alpha=0.3)
+ax1.grid(False)
 ax1.axhline(T1_pre, lw=1.2, linestyle=":", alpha=0.8)
 
 # Legend INSIDE T1 axes, upper right
@@ -62,7 +62,7 @@ for i, r1 in enumerate(r1_values):
 ax2.set_title("Blood R1 vs. Contrast Agent Concentration", pad=8)
 ax2.set_xlabel("Concentration of Contrast Agent Injection (mg/kg)")
 ax2.set_ylabel("R1 of Blood (s⁻¹)")
-ax2.grid(True, linestyle="--", alpha=0.3)
+ax2.grid(False)
 ax2.set_xlim(0, 30)
 
 plt.show()
