@@ -19,7 +19,7 @@ FOOTER_LEFT = "© 2025 — Your Lab"
 FOOTER_RIGHT = "Root: {root}"
 
 # ==== PERMANENT ROOTS ====
-ROOT = "/Volumes/Extreme_Pro/fMRI"
+ROOT = "/run/user/6631/gvfs/smb-share:server=sk3,share=pr_ohlendorf/fMRI"
 DEFAULT_CSV_PATH = f"{ROOT}/RawData/Animal_Experiments_Sequences_v1.csv"
 DEFAULT_ANALYSED_ROOT = f"{ROOT}/AnalysedData"
 
